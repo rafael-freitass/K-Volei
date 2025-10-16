@@ -1,5 +1,6 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, filedialog
+from app.controller.Controller import Controller
 
 from app.view.telas.Inicial import Inicial
 from app.view.telas.Inserir import Inserir
@@ -11,6 +12,7 @@ class View(tk.Tk):
 
         self.title("K-Volei")
         self.geometry("900x800")
+        self.controller = Controller(self)
 
         main_container = ttk.Frame(self)
         main_container.pack(fill="both", expand=True)
@@ -18,7 +20,7 @@ class View(tk.Tk):
         self.frames = {}
 
         for Page in (Inicial, Inserir, Resultado):
-            frame = Page(parent=main_container)
+            frame = Page(parent=main_container, controller=self.controller)
             name = Page.__name__
             self.frames[name] = frame
             frame.grid(row=0, column=0, sticky="nsew")
@@ -28,3 +30,15 @@ class View(tk.Tk):
     def show_frame(self, name: str):
         frame = self.frames[name]
         frame.tkraise()
+
+    def selecionar_arquivo(self):
+        caminho = filedialog.askopenfilename(
+            title="Selecione um arquivo CSV",
+            filetypes=[
+            ("Planilhas", "*.csv *.xlsx"),
+            ("Arquivos CSV", "*.csv"),
+            ("Arquivos Excel", "*.xlsx"),
+        ],
+            defaultextension=".csv"
+        )
+        return caminho
