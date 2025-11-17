@@ -11,9 +11,9 @@ class CarregarArquivoHandler(BaseHandler):
         sufixo = caminho.suffix.lower()
         
         if sufixo == ".csv":
-            data = pd.read_csv(caminho)
+            data = pd.read_csv(caminho, sep=";", decimal=",")
         elif sufixo in [".xlsx", ".xls"]:
-            data = pd.read_excel(caminho)
+            data = pd.read_excel(caminho, decimal=",")
         else:
             raise ValueError(f"Extensão não suportada: {sufixo}")
         

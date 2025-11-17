@@ -6,6 +6,7 @@ class SelecionarColunasHandler(BaseHandler):
         super().__init__()
 
         self.colunas_relevantes = [
+            "posicao",
             "peso",
             "estatura",
             "alturatc",
