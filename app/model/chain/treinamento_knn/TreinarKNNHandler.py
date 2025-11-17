@@ -1,5 +1,5 @@
 from app.model.chain.base.BaseHandler import BaseHandler
 
-class LimparDadosHandler(BaseHandler):
+class TreinarKNNHandler(BaseHandler):
     def handle(self, data):
-        return self.set_next(data)
+        return print('passo pelo treinar KNN')

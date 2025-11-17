@@ -1,9 +1,9 @@
 from tkinter import ttk, messagebox
 
 class Inicial(ttk.Frame):
-    def __init__(self, parent, controller):
+    def __init__(self, parent, view):
         super().__init__(parent, padding=32)
-        self.controller = controller
+        self.view_controller = view
         self.columnconfigure(0, weight=1)
         
         self.titulo()
@@ -37,7 +37,7 @@ class Inicial(ttk.Frame):
         self.btns.grid(row=3, column=0, pady=(0, 8))
         self.btns.columnconfigure((0,1), weight=1)
 
-        self.btn_importar = ttk.Button(self.btns, text="Importar dataset", command=lambda: self.controller.abrir_arquivo())
+        self.btn_importar = ttk.Button(self.btns, text="Importar dataset", command=lambda: self.view_controller.selecionar_arquivo_treino())
         self.btn_importar.grid(row=0, column=0, padx=6)
 
         self.btn_info = ttk.Button(self.btns, text="Quais dados utilizamos?", command=self._show_info)

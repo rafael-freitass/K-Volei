@@ -12,7 +12,8 @@ class View(tk.Tk):
 
         self.title("K-Volei")
         self.geometry("900x800")
-        self.controller = Controller(self)
+
+        self.controller = Controller()
 
         main_container = ttk.Frame(self)
         main_container.pack(fill="both", expand=True)
@@ -20,7 +21,7 @@ class View(tk.Tk):
         self.frames = {}
 
         for Page in (Inicial, Inserir, Resultado):
-            frame = Page(parent=main_container, controller=self.controller)
+            frame = Page(parent=main_container, view=self)
             name = Page.__name__
             self.frames[name] = frame
             frame.grid(row=0, column=0, sticky="nsew")
@@ -31,14 +32,15 @@ class View(tk.Tk):
         frame = self.frames[name]
         frame.tkraise()
 
-    def selecionar_arquivo(self):
+    def selecionar_arquivo_treino(self):
         caminho = filedialog.askopenfilename(
             title="Selecione um arquivo CSV",
             filetypes=[
-            ("Planilhas", "*.csv *.xlsx"),
-            ("Arquivos CSV", "*.csv"),
-            ("Arquivos Excel", "*.xlsx"),
-        ],
+                ("Planilhas", "*.csv *.xlsx"),
+                ("Arquivos CSV", "*.csv"),
+                ("Arquivos Excel", "*.xlsx"),
+            ],
             defaultextension=".csv"
         )
-        return caminho
+        self.controller.abrir_arquivo_treino(caminho)
+        self.show_frame("Inserir")

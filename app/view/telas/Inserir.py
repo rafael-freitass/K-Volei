@@ -1,9 +1,9 @@
 from tkinter import ttk
 
 class Inserir(ttk.Frame):
-    def __init__(self, parent, controller):
+    def __init__(self, parent, view):
         super().__init__(parent, padding=24)
-        self.controller = controller
+        self.controller = view.controller
         self.columnconfigure(0, weight=1)
 
         self.titulo()
