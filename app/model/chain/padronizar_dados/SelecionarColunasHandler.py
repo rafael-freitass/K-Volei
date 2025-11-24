@@ -39,7 +39,4 @@ class SelecionarColunasHandler(BaseHandler):
 
         df_filtrado = df[colunas_existentes].copy()
 
-        df_filtrado.to_csv("dados_filtrados.csv", index=False, float_format="%.2f")
-        print("Arquivo salvo em 'dados_filtrados.csv'")
-
         return self.next(df_filtrado)

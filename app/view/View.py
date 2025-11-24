@@ -44,3 +44,8 @@ class View(tk.Tk):
         )
         self.controller.abrir_arquivo_treino(caminho)
         self.show_frame("Inserir")
+    
+    def mostrar_resultado(self, resultado: dict):
+        frame_resultado = self.frames["Resultado"]
+        frame_resultado.atualizar(resultado)
+        self.show_frame("Resultado")

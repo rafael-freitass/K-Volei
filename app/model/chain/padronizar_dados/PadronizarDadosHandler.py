@@ -69,7 +69,4 @@ class PadronizarDadosHandler(BaseHandler):
         df = self.padronizar_numeros(df)
         df = self.tratar_dados_vazios(df)
 
-        df.to_csv("dados_padronizados.csv", index=False, float_format="%.2f")
-        print("Arquivo salvo em 'dados_padronizados.csv'")
-
         return self.next(df)

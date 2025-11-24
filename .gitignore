@@ -17,3 +17,4 @@ build/
 *.db
 .idea/
 .vscode/
+*.pkl

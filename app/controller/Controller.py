@@ -11,3 +11,12 @@ class Controller():
         
         self.model.carregar_arquivo(caminho, modo="treino")
         print("Passou pelo Controller")
+
+    def prever_individual(self, dados_individuais: dict):
+        resultado = self.model.prever_individual(dados_individuais)
+        
+        resultado["nome"] = dados_individuais.get("nome", "")
+        resultado["idade"] = dados_individuais.get("idade", "")
+        
+        print("Passou pelo Controller (previsão individual)")
+        return resultado

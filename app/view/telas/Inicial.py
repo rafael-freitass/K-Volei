@@ -11,12 +11,12 @@ class Inicial(ttk.Frame):
         self.buttons()
 
     def titulo(self):
-        self.titulo = ttk.Label(self, text="K-volei")
+        self.titulo = ttk.Label(self, text="Bem-vindo(a) ao K-volei!")
         self.titulo.grid(row=0, column=0, pady=(0, 12), sticky="n")
 
         self.descricao = ttk.Label(
             self,
-            text="Iremos decidir qual a melhor posição para você jogar no volei",
+            text="Iremos decidir qual a melhor posição para os alunos da sua turma jogar no volei",
             wraplength=720,
             justify="center"
         )
@@ -40,10 +40,10 @@ class Inicial(ttk.Frame):
         self.btn_importar = ttk.Button(self.btns, text="Importar dataset", command=lambda: self.view_controller.selecionar_arquivo_treino())
         self.btn_importar.grid(row=0, column=0, padx=6)
 
-        self.btn_info = ttk.Button(self.btns, text="Quais dados utilizamos?", command=self._show_info)
+        self.btn_info = ttk.Button(self.btns, text="Quais dados utilizamos?", command=self.mostrar_info)
         self.btn_info.grid(row=0, column=1, padx=6)
 
-    def _show_info(self):
+    def mostrar_info(self):
         info = (
             "Utilizamos dados de testes do PROESP:\n"
             "• Medidas de altura em pé, altura sentado e massa\n"
