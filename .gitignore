@@ -7,7 +7,6 @@ ENV/
 env/
 .env
 pip-freeze.txt
-requirements.txt
 dist/
 build/
 *.egg-info/
