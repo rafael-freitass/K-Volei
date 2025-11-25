@@ -16,6 +16,7 @@ class Model:
         self.modelo_knn = None
         self.features_knn = None
         self.caminho_modelo_knn = None
+        self.pasta_turmas = Path("turmas")
 
     def montar_corrente(self, ultimo_handler):
         self.carregar_dados = CarregarArquivoHandler()
@@ -121,6 +122,15 @@ class Model:
 
         df = pd.DataFrame(self.alunos_turma)
         df.to_csv(caminho, index=False)
+
+    def listar_turmas_disponiveis(self):
+        if not self.pasta_turmas.exists():
+            return []
+        return list(self.pasta_turmas.glob("*.csv"))
+    
+    def obter_pasta_turmas(self) -> Path:
+        self.pasta_turmas.mkdir(parents=True, exist_ok=True)
+        return self.pasta_turmas
 
     def encerrar_e_visualizar_turma(self, nome_planilha: str | None = None):
         caminho = None

@@ -1,6 +1,5 @@
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
-from pathlib import Path
 from app.controller.Controller import Controller
 from app.view.telas.Inicial import Inicial
 from app.view.telas.Inserir import Inserir
@@ -54,15 +53,17 @@ class View(tk.Tk):
         self.show_frame("Resultado")
 
     def ver_turmas(self):
-        pasta_turmas = Path("turmas")
+        turmas = self.controller.listar_turmas_disponiveis()
 
-        if not pasta_turmas.exists():
+        if not turmas:
             messagebox.showinfo(
                 "Turmas",
                 "Ainda não há turmas salvas.\nFinalize uma turma para gerar um arquivo CSV.",
                 parent=self
             )
             return
+        
+        pasta_turmas = self.controller.obter_pasta_turmas()
 
         caminho = filedialog.askopenfilename(
             title="Selecione uma turma (CSV)",

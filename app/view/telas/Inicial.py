@@ -5,14 +5,12 @@ class Inicial(ttk.Frame):
         super().__init__(parent, padding=32)
         self.view_controller = view
 
-        # Deixa a coluna principal expansiva para centralizar tudo
         self.columnconfigure(0, weight=1)
 
-        # Estilo para título e textos
         style = ttk.Style(self)
         style.configure(
             "Titulo.TLabel",
-            font=("Helvetica", 28, "bold")  # título bem grande
+            font=("Helvetica", 28, "bold")
         )
         style.configure(
             "Descricao.TLabel",
@@ -31,7 +29,6 @@ class Inicial(ttk.Frame):
         self.buttons()
 
     def titulo(self):
-        # Título principal
         self.titulo = ttk.Label(
             self,
             text="Bem-vindo(a) ao K-Volei!",
@@ -40,7 +37,6 @@ class Inicial(ttk.Frame):
         )
         self.titulo.grid(row=0, column=0, pady=(0, 16), sticky="n")
 
-        # Descrição logo abaixo
         self.descricao = ttk.Label(
             self,
             text="Vamos ajudar a decidir qual é a melhor posição para os alunos da sua turma jogarem vôlei.",
@@ -62,10 +58,8 @@ class Inicial(ttk.Frame):
         self.btns = ttk.Frame(self)
         self.btns.grid(row=3, column=0, pady=(0, 8))
         
-        # 2 colunas para organizar em grade 2x2
         self.btns.columnconfigure((0, 1), weight=1, uniform="btns")
 
-        # Linha 1: ações principais
         self.btn_importar = ttk.Button(
             self.btns,
             text="Importar dataset",
@@ -80,7 +74,6 @@ class Inicial(ttk.Frame):
         )
         self.btn_modelo.grid(row=0, column=1, padx=8, pady=6, sticky="ew")
 
-        # Linha 2: opções de suporte / navegação
         self.btn_ver_turmas = ttk.Button(
             self.btns,
             text="Ver turmas",

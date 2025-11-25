@@ -24,6 +24,12 @@ class Controller():
             print("Caminho inválido para turma")
             return []
         return self.model.carregar_turma(caminho_turma)
+    
+    def listar_turmas_disponiveis(self):
+        return self.model.listar_turmas_disponiveis()
+    
+    def obter_pasta_turmas(self):
+        return self.model.obter_pasta_turmas()
 
     def prever_individual(self, dados_individuais: dict):
         resultado = self.model.prever_individual(dados_individuais)

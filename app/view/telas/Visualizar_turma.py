@@ -65,5 +65,4 @@ class Visualizar_turma(ttk.Frame):
             )
 
     def voltar_inicial(self):
-        self.view.controller.model.alunos_turma
         self.view.show_frame("Inicial")
