@@ -1,17 +1,21 @@
+import joblib
+import pandas as pd
+from pathlib import Path
+
 from app.model.chain.padronizar_dados.CarregarArquivoHandler import CarregarArquivoHandler
 from app.model.chain.padronizar_dados.SelecionarColunasHandler import SelecionarColunasHandler
 from app.model.chain.padronizar_dados.PadronizarDadosHandler import PadronizarDadosHandler
 from app.model.chain.treinamento_knn.TreinarKNNHandler import TreinarKNNHandler
-
-import joblib
-import pandas as pd
-from pathlib import Path
 
 class Model:
     def __init__(self):
         self.chain_treinamento = self.montar_corrente(TreinarKNNHandler())
 
         self.alunos_turma = []
+
+        self.modelo_knn = None
+        self.features_knn = None
+        self.caminho_modelo_knn = None
 
     def montar_corrente(self, ultimo_handler):
         self.carregar_dados = CarregarArquivoHandler()
@@ -25,8 +29,27 @@ class Model:
         return self.carregar_dados
 
     def carregar_arquivo(self, caminho_dataset):
-        print('Passou pelo model')
-        return self.chain_treinamento.handle(caminho_dataset)
+        caminho = Path(caminho_dataset)
+        return self.chain_treinamento.handle(caminho)
+    
+    def carregar_modelo_treinado(self, caminho_modelo):
+        caminho = Path(caminho_modelo)
+
+        payload = joblib.load(caminho)
+        self.modelo_knn = payload["modelo"]
+        self.features_knn = payload["features"]
+        self.caminho_modelo_knn = caminho
+
+        print(f"Modelo KNN carregado de: {caminho}")
+
+    def carregar_turma(self, caminho_turma):
+        caminho = Path(caminho_turma)
+        if not caminho.exists():
+            raise FileNotFoundError(f"Arquivo não encontrado: {caminho}")
+
+        df = pd.read_csv(caminho)
+
+        return df.to_dict(orient="records")
 
     def converter_para_float(self, valor, default=0.0):
         if isinstance(valor, (int, float)):
@@ -44,11 +67,16 @@ class Model:
         return default
 
     def prever_individual(self, dados_individuais: dict):
-        model_path = Path("knn_model.pkl")
-
-        payload = joblib.load(model_path)
-        modelo = payload["modelo"]
-        features = payload["features"]
+        if self.modelo_knn is None or self.features_knn is None:
+            model_path = Path("knn_model.pkl")
+            payload = joblib.load(model_path)
+            self.modelo_knn = payload["modelo"]
+            self.features_knn = payload["features"]
+            self.caminho_modelo_knn = model_path
+            print("Modelo padrão knn_model.pkl carregado automaticamente")
+    
+        modelo = self.modelo_knn
+        features = self.features_knn
 
         linha = {}
         for feat in features:

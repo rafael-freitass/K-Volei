@@ -11,6 +11,19 @@ class Controller():
         
         self.model.carregar_arquivo(caminho)
         print("Passou pelo Controller")
+    
+    def carregar_modelo_treinado(self, caminho):
+        if not caminho:
+            print("Caminho inválido para modelo treinado")
+            return
+        
+        self.model.carregar_modelo_treinado(caminho)
+
+    def carregar_turma(self, caminho_turma):
+        if not caminho_turma:
+            print("Caminho inválido para turma")
+            return []
+        return self.model.carregar_turma(caminho_turma)
 
     def prever_individual(self, dados_individuais: dict):
         resultado = self.model.prever_individual(dados_individuais)

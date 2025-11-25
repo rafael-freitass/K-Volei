@@ -46,7 +46,7 @@ class Visualizar_turma(ttk.Frame):
         btns.grid(row=2, column=0, sticky="ew", pady=(8, 0))
         btns.columnconfigure(0, weight=1)
 
-        btn_nova_turma = ttk.Button(btns, text="Nova turma", command=self.voltar_inicial)
+        btn_nova_turma = ttk.Button(btns, text="Voltar ao Inicio", command=self.voltar_inicial)
         btn_nova_turma.grid(row=0, column=0, sticky="e")
 
     def atualizar(self, dados_turma: list[dict]):
