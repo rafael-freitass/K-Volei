@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, simpledialog
 
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
@@ -57,9 +57,14 @@ class Resultado(ttk.Frame):
         btns = ttk.Frame(self)
         btns.grid(row=3, column=0, sticky="ew", pady=(8, 0))
         btns.columnconfigure(0, weight=1)
+        btns.columnconfigure(1, weight=0)
+        btns.columnconfigure(2, weight=0)
 
-        btn_voltar = ttk.Button(btns, text="Nova avaliação", command=lambda: self.view.show_frame("Inicial"))
-        btn_voltar.grid(row=0, column=0, sticky="e")
+        btn_proximo = ttk.Button(btns, text="Próximo aluno", command=self.proximo_aluno)
+        btn_proximo.grid(row=0, column=0, sticky="w")
+
+        btn_encerrar = ttk.Button(btns, text="Encerrar turma", command=self.encerrar_turma)
+        btn_encerrar.grid(row=0, column=1, sticky="e")
 
 
     def atualizar(self, resultado: dict):
@@ -74,7 +79,7 @@ class Resultado(ttk.Frame):
         self.lbl_posicao.config(text=posicao)
 
         if proba is not None and classes is not None:
-            self._desenhar_radar(classes, proba, titulo=f"Distribuição de probabilidade - {posicao}")
+            self._desenhar_radar(classes, proba)
         else:
             self._limpar_grafico(titulo="Sem probabilidades disponíveis")
 
@@ -106,3 +111,21 @@ class Resultado(ttk.Frame):
         self.ax.set_title(titulo, pad=20)
 
         self.canvas.draw_idle()
+
+    def proximo_aluno(self):
+        frame_inserir = self.view.frames["Inserir"]
+        frame_inserir.limpar_campos()
+        self.view.show_frame("Inserir")
+
+    def encerrar_turma(self):
+        nome_planilha = simpledialog.askstring(
+            "Encerrar turma",
+            "Digite o nome da planilha:",
+            parent=self
+        )
+                
+        dados_turma = self.view.controller.encerrar_e_visualizar_turma(nome_planilha)
+        
+        frame_visualizar = self.view.frames["Visualizar_turma"]
+        frame_visualizar.atualizar(dados_turma)
+        self.view.show_frame("Visualizar_turma")

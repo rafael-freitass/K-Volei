@@ -9,7 +9,7 @@ class Controller():
             print("Caminho inválido")
             return
         
-        self.model.carregar_arquivo(caminho, modo="treino")
+        self.model.carregar_arquivo(caminho)
         print("Passou pelo Controller")
 
     def prever_individual(self, dados_individuais: dict):
@@ -20,3 +20,9 @@ class Controller():
         
         print("Passou pelo Controller (previsão individual)")
         return resultado
+    
+    def registrar_aluno_turma(self, dados_individuais: dict, resultado: dict):
+        self.model.registrar_aluno_turma(dados_individuais, resultado)
+
+    def encerrar_e_visualizar_turma(self, nome_planilha: str | None = None):
+        return self.model.encerrar_e_visualizar_turma(nome_planilha)

@@ -5,6 +5,7 @@ from app.controller.Controller import Controller
 from app.view.telas.Inicial import Inicial
 from app.view.telas.Inserir import Inserir
 from app.view.telas.Resultado import Resultado
+from app.view.telas.Visualizar_turma import Visualizar_turma
 
 class View(tk.Tk):
     def __init__(self):
@@ -20,7 +21,7 @@ class View(tk.Tk):
 
         self.frames = {}
 
-        for Page in (Inicial, Inserir, Resultado):
+        for Page in (Inicial, Inserir, Resultado, Visualizar_turma):
             frame = Page(parent=main_container, view=self)
             name = Page.__name__
             self.frames[name] = frame

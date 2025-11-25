@@ -1,3 +1,4 @@
+import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 
@@ -120,4 +121,17 @@ class Inserir(ttk.Frame):
             "S_horizontal": self.input_Shorizontal.get(),
         }
         resultado = self.controller.prever_individual(dados_tela)
+        self.controller.registrar_aluno_turma(dados_tela, resultado)
         self.view.mostrar_resultado(resultado)
+    
+    def limpar_campos(self):
+        self.input_nome.delete(0, tk.END)
+        self.input_idade.delete(0, tk.END)
+        self.input_estatura.delete(0, tk.END)
+        self.input_alturaTC.delete(0, tk.END)
+        self.input_peso.delete(0, tk.END)
+        self.input_flexibilidade.delete(0, tk.END)
+        self.input_abdominal.delete(0, tk.END)
+        self.input_arremessoME.delete(0, tk.END)
+        self.input_Svertical.delete(0, tk.END)
+        self.input_Shorizontal.delete(0, tk.END)
